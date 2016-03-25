@@ -5,7 +5,6 @@ use_frameworks!
 
 target 'MyInstagram' do
 	pod 'RealmSwift', '~> 0.98'
-	pod 'Firebase', '~> 2.5'
 end
 
 target 'MyInstagramTests' do
