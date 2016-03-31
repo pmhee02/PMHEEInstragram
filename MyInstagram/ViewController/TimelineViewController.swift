@@ -10,7 +10,7 @@ import UIKit
 
 class TimelineViewController: UIViewController
 {
-
+    var photoTakingHelper : PhotoTakingHelper?
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -18,16 +18,28 @@ class TimelineViewController: UIViewController
         self.tabBarController?.delegate = self
         
     }
+    
+    func takePhoto()
+    {
+        photoTakingHelper = PhotoTakingHelper(viewController: self.tabBarController!)
+        {
+            (image:UIImage?)in
+            // do nothing
+        }
+        
+        //PhotoTakingHelper(viewController: self.tabBarController, callback: {(image:UIImage?)in})
+    }
+}
     //MARK : Tab Bar Delegate
     
-    extension TimelineViewController: UITabBarControllerDelegate
-    {
-        func tabBarController(tabBarController: UITabController,
-            shouldSelectViewController viewController: UIViewController) -> Bool
+extension TimelineViewController: UITabBarControllerDelegate
+{
+    func tabBarController(tabBarController: UITabBarController,
+        shouldSelectViewController viewController: UIViewController) -> Bool
         {
             if(viewController is PhotoViewController)
             {
-                print("Take Photo")
+                takePhoto()
                 return false
             }
             else
@@ -36,6 +48,6 @@ class TimelineViewController: UIViewController
             }
         }
         
-    }
-  
 }
+  
+

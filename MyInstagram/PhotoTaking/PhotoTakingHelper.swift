@@ -20,7 +20,7 @@ class PhotoTakingHelper: NSObject
     var callback: PhotoTakingHelperCallback
     var imagePickerController: UIImagePickerController?
     
-    init(ViewController: UIViewController, callback: PhotoTakingHelperCallback)
+    init(viewController: UIViewController, callback: PhotoTakingHelperCallback)
     {
         self.viewController = viewController
         self.callback = callback
@@ -30,21 +30,30 @@ class PhotoTakingHelper: NSObject
         
     }
     
-    func shoPhotoSourceSelection()
+    func showPhotoSourceSelection()
     {
         let alertController = UIAlertController(title: nil, message: "Where do you want to get your picture from?", preferredStyle: .ActionSheet)
         
-        let cancelAction = UIAlertController(title: "Cancel", style: .Cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
         alertController.addAction(cancelAction)
         
         let photoLibaryAction = UIAlertAction(title: "Photo from Libary",style: .Default)
         {
-                (ACTION)in
+                (action)in
         }
         
         alertController.addAction(photoLibaryAction)
         
         if(UIImagePickerController.isCameraDeviceAvailable(.Rear))
+        {
+            let cameraAction = UIAlertAction(title: "Photo from Camera", style: .Default)
+                {
+                    (action)in
+                }
+            alertController.addAction(cameraAction)
+        }
+        
+        viewController.presentViewController(alertController, animated: true, completion:nil)
     }
     
     
